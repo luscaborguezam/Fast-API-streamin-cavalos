@@ -16,7 +16,7 @@ from hashlib import sha256
 app = FastAPI()
 
 #-{dia}-{mes}-{ano} -{cep}-{username}{senha}
-@app.get('/registrar/{Nome}-{Sobrenome}-{Passoword}', response_class= HTMLResponse, status_code= 201)
+@app.get('/registrar/{Nome}-{Sobrenome}-{Passoword}', response_class= HTMLResponse, status_code= 200)
 async def coletarDados(Nome: str, Sobrenome: str, Passoword:str):
     """
     Função que coleta os dados e verifica apartir de outras funçoes
@@ -38,19 +38,19 @@ async def coletarDados(Nome: str, Sobrenome: str, Passoword:str):
         return f"{messageNomeSobrenome}{messagePassoword}"
 
 
-@app.get('/consultar', response_class=HTMLResponse, status_code=201)
+@app.get('/consultar', response_class=HTMLResponse, status_code=200)
 async def Consultar():
     return banco.consultandoTodosClientes()
 
 
-@app.get('/consultar/{id_usuario}', response_class = HTMLResponse, status_code = 201)
+@app.get('/consultar/{id_usuario}', response_class = HTMLResponse, status_code = 200)
 async def consultarID(id_usuario: str):
     if id_usuario.isnumeric():
         return banco.buscarUsuarioId(id=id_usuario)
     else:
         return f"<h1>id: '{id_usuario}' não existe</h1>"
 
-@app.get('/deletar/{id_usuario}', response_class = HTMLResponse, status_code = 201)
+@app.get('/deletar/{id_usuario}', response_class = HTMLResponse, status_code = 200)
 async def deletarId(id_usuario: str):
     if id_usuario.isnumeric():
         print(id_usuario)
